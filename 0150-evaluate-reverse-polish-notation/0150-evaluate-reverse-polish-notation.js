@@ -5,32 +5,20 @@
 var evalRPN = function(tokens) {
     let stack = []
     let first, second
+    const map = new Map([
+        ["+", (a, b) => b + a],
+        ["-", (a, b) => b - a],
+        ["*", (a, b) => b * a],
+        ["/", (a, b) => Math.trunc(b / a)]
+    ])
     tokens.forEach((token) => {
-        switch(token) {
-            case '+':
-                first = parseInt(stack.pop()) 
-                second = parseInt(stack.pop())
-                stack.push(second + first)
-                break
-            case '-':
-                first = parseInt(stack.pop()) 
-                second = parseInt(stack.pop()) 
-                stack.push(second - first)
-                break   
-            case '*':
-                first = parseInt(stack.pop()) 
-                second = parseInt(stack.pop()) 
-                stack.push(second * first)
-                break
-            case '/':
-                first = parseInt(stack.pop()) 
-                second = parseInt(stack.pop()) 
-                stack.push(Math.trunc(second / first))
-                break
-            default:
-                stack.push(token)
-                break
-        }
+     if(!map.has(token)) {
+         stack.push(token)
+     } else {
+         first = parseInt(stack.pop())
+         second = parseInt(stack.pop())
+         stack.push(map.get(token)(first, second))
+     }
     })
     return stack.pop()
 };
