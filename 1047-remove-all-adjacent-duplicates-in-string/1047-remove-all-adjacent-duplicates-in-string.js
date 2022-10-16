@@ -13,8 +13,5 @@ var removeDuplicates = function(s) {
             stack.push(s[i])
         }
     }
-    while(stack.length > 0) {
-        result += stack.shift()
-    }
-    return result
+    return stack.join("")
 };
