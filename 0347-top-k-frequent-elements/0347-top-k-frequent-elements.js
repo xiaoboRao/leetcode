@@ -23,11 +23,8 @@ var topKFrequent = function(nums, k) {
         } 
           freqKeys[freq].push(key)
     }
-    console.log(freqKeys)
     // sort the frequency
     let sortFreqKeys = Object.keys(freqKeys).sort((a, b) => b - a)
-    console.log(sortFreqKeys)
-
     let result = []
     let resK = 0
     sortFreqKeys.forEach((freq) => {
