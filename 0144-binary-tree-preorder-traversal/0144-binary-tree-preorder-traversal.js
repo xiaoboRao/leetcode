@@ -11,17 +11,16 @@
  * @return {number[]}
  */
 var preorderTraversal = function(root) {
+    if(!root) return []
     let result = []
-    Traversal(result, root)
-    function Traversal(result, treeNode) {
-        if(!treeNode) {
-            return
-        }
-        result.push(treeNode.val)
-        Traversal(result, treeNode.left)
-        Traversal(result, treeNode.right)
+    let cur = null
+    let stack = [root]
+    while(stack.length) {
+        let node = stack.pop()
+        result.push(node.val)
+        node.right && stack.push(node.right)
+        node.left && stack.push(node.left)
     }
-    
     return result
 
 };
