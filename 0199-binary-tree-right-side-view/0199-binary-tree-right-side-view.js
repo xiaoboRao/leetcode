@@ -19,11 +19,14 @@ var rightSideView = function(root) {
         let curLevel = []
         while(length-- > 0) {
             let cur = stack.shift()
-            curLevel.push(cur.val)
+            // just need the most right side node, so get the last element which is what we want
+            if(length === 0) {
+                curLevel.push(cur.val)
+            }
             cur.left && stack.push(cur.left)
             cur.right && stack.push(cur.right)
         }
-        result.push(curLevel[curLevel.length - 1])
+        result.push(curLevel[0])
     }
     return result
 };
