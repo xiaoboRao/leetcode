@@ -4,32 +4,28 @@
  * @return {number[][]}
  */
 var combinationSum = function(candidates, target) {
-    
     let path = []
     let result = []
     let length = candidates.length
     
-    const backTracking = (candidates, startIndex) => {
-        let total = 0
-        path.forEach(val => {
-            total += val
+    const backTracking = (startIndex) => {
+        let total  = 0
+        path.forEach( item => {
+           total += item     
         })
-        
+        if(total > target) return
         if(total === target) {
             result.push([...path])
             return
         }
-        if(total > target) return
-        
-        for(let i = startIndex;  i < length; i++) {
-            
+        for(let i = startIndex; i < length; i++) {
             path.push(candidates[i])
-            backTracking(candidates, i)
+            backTracking(i)
             path.pop()
         }
     }
     
-    backTracking(candidates, 0)
+    backTracking(0)
     return result
     
 };
