@@ -7,31 +7,39 @@ var combinationSum2 = function(candidates, target) {
     
     let result = []
     let path = []
+    // sort candidates 
+    candidates.sort((a, b) => a - b)
     let len = candidates.length
-    candidates.sort((a,b)=>a-b);
-    const backTracking = (startIndex, sum) => {
+    let used = new Array(len).fill(false)
+
+    const backTracking = (startIndex) => {
     
-        if(sum === target) {
+        let total = 0
+        path.forEach( item => {
+            total += item
+        })
+        
+        if(total > target) return
+        if(total === target) {
             result.push([...path])
             return
         }
         
-        for(let i = startIndex; i < len; i++) {
-            const val =  candidates[i]
-            if( i > startIndex && val === candidates[i - 1]) {
+        for(let i = startIndex; i< len; i++ ) {
+            //  used[i - 1] = false : the candidates[i - 1] used in the same brach
+            // used[i - 1] = true : the candidates[i - 1] used in the same level
+            if(i > 0  && candidates[i ] === candidates[i - 1] && !used[i - 1]) {
                 continue
             }
-            if(sum + val > target) {
-                break
-            }
-            path.push(val)
-            sum += val
-            backTracking(i + 1, sum)
+            path.push(candidates[i])
+            used[i] = true
+            backTracking(i + 1)
             path.pop()
-            sum -= val
+            used[i] = false
+
         }
     }
     
-    backTracking(0, 0)
+    backTracking(0)
     return result
 };
