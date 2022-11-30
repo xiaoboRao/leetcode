@@ -3,12 +3,8 @@
  * @return {string[][]}
  */
 
-const isPalindrome = (s, left, rright) => {
-    for (let i = left, j = rright; i < j; i++, j--) {
-        if(s[i] !== s[j]) return false;
-    }
-    return true;
-}
+
+
 var partition = function(s) {
     
     let path = []
@@ -16,15 +12,32 @@ var partition = function(s) {
     
     let len = s.length
     
+    const isPalindrome = (str) => {
+        let strLen = str.length
+        
+        for(let i = 0; i< strLen; i++) {
+            if(str[i] !== str[--strLen]) return false
+        }
+        return true
+        
+    }
+    
     const backTracking = (startIndex) => {
-        if(startIndex >= len) {
+        let flag = false
+        path.forEach( item => {
+                if(!isPalindrome(item)) {
+                    flag = true
+                }
+            }
+        )
+        if(flag) return
+        if(startIndex === len) {
             result.push([...path])
-            return
         }
         
-        for(let i = startIndex; i < len; i++ ) {
-            if(!isPalindrome(s, startIndex, i)) continue
-            path.push(s.slice(startIndex, i+1))
+        for(let i = startIndex; i<s.length; i++) {
+            let str = s.substr(startIndex, i - startIndex + 1);
+            path.push(str)
             backTracking(i + 1)
             path.pop()
         }
