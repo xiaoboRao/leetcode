@@ -2,40 +2,37 @@
  * @param {string} s
  * @return {string[]}
  */
-
-const isValid = (s, starIndex,endIndex) => {
-    
-}
 var restoreIpAddresses = function(s) {
     let result = []
     let path = []
     
-    
     const backTracking = (startIndex) => {
-        const len = path.length
-        if(len > 4 ) return;
-        // end the for loop
-        if(len === 4 && startIndex=== s.length) {
-            result.push(path.join("."))
+        
+        if(path.length > 4) return
+        if(path.length === 4 && startIndex === s.length) {
+            let str = ""
+            for(let i =0; i< path.length; i++) {
+                
+                if(path[i] > 255) return
+                if(path[i].length > 1 && path[i][0] == 0) return
+                if(i !== path.length - 1) {
+                    str += path[i] + '.'
+                } else {
+                    str += path[i]
+                }
+            }
+            result.push(str)
             return
         }
         
-        for(let i = startIndex; i< s.length; i++ ) {
-            const str = s.slice(startIndex, i+1);
-            
-            // each integer is between 0 and 255
-            if(str.length > 3 || parseInt(str) > 255) break
-            //  cannot have leading zeros
-            if(str[0] == 0 && str.length !== 1)  break
-            
-            path.push(str)
-            
-            backTracking(i+1)
+        for(let i = startIndex; i < s.length; i++) {
+            path.push(s.slice(startIndex, i + 1))
+            backTracking(i + 1)
             path.pop()
         }
-    }
+      }
     
-    backTracking(0)
+    backTracking(0, 0)
     return result
     
 };
