@@ -9,19 +9,19 @@ var findSubsequences = function(nums) {
     let len = nums.length
     const backTracking = (startIndex) => {
         
-        if(path.length >= 2) {
-            result.push([...path])
-            // return
+        if(path.length > 1) {
+             result.push([...path])
         }
-            let map = []
-        for(let i = startIndex; i < len; i++) {
-            // make sure the elements in path is increasing
-            if( (nums[i] < path[path.length - 1]) || (map[nums[i] + 100]) ) continue
-            map[nums[i] + 100] = true
-            path.push(nums[i]) 
+        let unset = []
+        for(let i = startIndex; i < len; i++ ) {
+            if( (path.length > 0 && nums[i] < path[ path.length - 1 ] )) continue
+            if( unset[nums[i]]) continue
+            unset[nums[i]] = true
+            path.push(nums[i])
             backTracking(i + 1)
             path.pop()
         }
+        
     }
     
     backTracking(0)
