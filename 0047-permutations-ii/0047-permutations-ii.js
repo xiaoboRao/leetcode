@@ -15,18 +15,18 @@ var permuteUnique = function(nums) {
             return
         }
         
-        for(let i = 0; i < len; i++) {
-            if(i > 0 && nums[i] === nums[i - 1] && used[i - 1]) continue
+        for(let i = 0 ; i < len; i++) {
+            if(i > 0 && nums[i - 1] === nums[i] && used[i - 1]) continue
             
             if(!used[i]) {
-                used[i] = true
                 path.push(nums[i])
+                used[i] = true
                 backTracking()
                 path.pop()
                 used[i] = false
             }
-          
         }
+        
     }
     
     backTracking()
