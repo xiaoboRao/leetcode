@@ -9,18 +9,17 @@ var permute = function(nums) {
     let len = nums.length
     let used = []
     const backTracking = () => {
-        
         if(path.length === len) {
             result.push([...path])
-            return
         }
-        for(let i = 0; i< len; i++) {
-            if(used[i]) continue
-            used[i] = true
+        
+        for(let i = 0; i < len; i++) {
+            if(used[nums[i]]) continue
+            used[nums[i]] = true
             path.push(nums[i])
-            backTracking()
+            backTracking(i + 1)
             path.pop()
-            used[i] = false
+            used[nums[i]] = false
 
         }
     }
