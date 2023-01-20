@@ -9,13 +9,7 @@ var totalFruit = function(fruits) {
     let left = 0
     let right = 0 
     while(right < fruits.length) {
-        if(map.size < 2) {
-            map.set(fruits[right], (map.get(fruits[right]) || 0) + 1)
-            right++
-            result = Math.max(right - left, result)
-            continue
-        }
-        if(map.get(fruits[right])) {
+        if(map.size < 2 || map.get(fruits[right])) {
             map.set(fruits[right], (map.get(fruits[right]) || 0) + 1)
             right++
             result = Math.max(right - left, result)
