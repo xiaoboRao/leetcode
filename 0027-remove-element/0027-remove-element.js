@@ -5,10 +5,16 @@
  */
 var removeElement = function(nums, val) {
     let slowIndex = 0
-    for(let i = 0; i < nums.length; i++) {
-        if(nums[i] !== val) {
-            nums[slowIndex++] = nums[i]
-        }
+    let fastIndex = 0
+    
+    for(const num of nums) {
+        
+        if( num !== val) {
+         nums[slowIndex++] = nums[fastIndex++]
+       } else {
+           fastIndex++
+       }
     }
-    return slowIndex;
+    
+    return slowIndex
 };
