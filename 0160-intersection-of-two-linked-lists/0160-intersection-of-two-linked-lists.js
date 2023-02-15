@@ -12,33 +12,37 @@
  * @return {ListNode}
  */
 
-function getListLen(head) {
-    let len = 0;
-    while(head){
-        len++;
-        head = head.next;
+function getNodeLength(node) {
+    let length = 0
+    while(node) {
+        node = node.next
+        length++
     }
-    return len;
+    return length
 }
+
 var getIntersectionNode = function(headA, headB) {
     
-    let lenA = getListLen(headA);
-    let lenB = getListLen(headB);
-    let curA = headA;
-    let curB = headB;
+    let lengthA = getNodeLength(headA)
+    let lengthB = getNodeLength(headB)
     
-    if(lenA < lenB) {
-        [lenA, lenB] =  [lenB, lenA];
-        [curA, curB] =  [curB, curA];
+    
+    // let headA is always the longer node
+    if(lengthA < lengthB) {
+        [headA, headB] = [headB, headA]
     }
-    let minus = lenA - lenB;
+    
+    let minus = Math.abs(lengthA - lengthB)
     while(minus--) {
-        curA = curA.next;
+        headA = headA.next
     }
-    // note: compare their address and value, not only just value
-    while(curA && curA !== curB) {
-            curA = curA.next; 
-            curB = curB.next;
+    
+    
+    while( headA  && headA !== headB) {
+        headA = headA.next
+        headB = headB.next
     }
-    return curA;
+    
+    return headA
+   
 };
