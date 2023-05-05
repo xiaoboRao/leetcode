@@ -8,24 +8,19 @@ var combinationSum = function(candidates, target) {
     let result = []
     let length = candidates.length
     
-    const backTracking = (startIndex) => {
-        let total  = 0
-        path.forEach( item => {
-           total += item     
-        })
-        if(total > target) return
-        if(total === target) {
-            result.push([...path])
-            return
-        }
-        for(let i = startIndex; i < length; i++) {
+    const backTrack = (index, sum) => {
+        
+        if(sum > target) return
+        if(sum === target) result.push([...path])
+        
+        for(let i = index; i < length; i++) {
+            
             path.push(candidates[i])
-            backTracking(i)
+            backTrack(i, sum + candidates[i])
             path.pop()
         }
     }
     
-    backTracking(0)
-    return result
-    
+    backTrack(0, 0)
+    return result    
 };
