@@ -6,36 +6,33 @@ var threeSum = function(nums) {
     nums.sort( (a, b) => a - b)
     let result = []
     
-    for(let i = 0; i < nums.length; i++) {
+    for(let start = 0; start < nums.length; start++) {
         
-        if(nums[0] > 0) return []
-        
-        if( i > 0 && nums[i] === nums[i - 1]) continue
-        
-        let movePoint = i + 1
-        let end = nums.length - 1
-        while(movePoint < end) {
-            
-            let moveElement =  nums[movePoint]
-            let lastElement = nums[end]
-            let sum = nums[i] + moveElement + lastElement
-            
-            if(sum > 0) {
-                end--
+        if(start > 0 && nums[start] === nums[start - 1 ]) {
+                continue
             }
-            if(sum === 0)   {
-               result.push([nums[i], moveElement, lastElement]) 
-                movePoint++ 
-                while(nums[movePoint] === nums[movePoint - 1]) {
-                    movePoint++
-                }
-                
-            } 
-            if(sum < 0) {
-                movePoint++
+        let pointer = start + 1
+        
+        let end = nums.length - 1
+        while(pointer < end) {
+
+            if(pointer > start + 1 && nums[pointer] === nums[pointer - 1 ]) {
+                pointer++
+                continue
+            }
+            let total = nums[start] + nums[pointer] + nums[end]
+            if(total > 0) {
+                end--
+            } else if(total === 0) {
+                result.push([nums[start], nums[pointer], nums[end]])
+                pointer++
+            } else {
+                pointer++
             }
         }
     }
+    
+
     
     return result
 };
