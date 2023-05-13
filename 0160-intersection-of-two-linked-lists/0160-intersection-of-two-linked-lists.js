@@ -22,27 +22,23 @@ function getNodeLength(node) {
 }
 
 var getIntersectionNode = function(headA, headB) {
-    
+    // get the lengths of headA and headB LinkedListds
     let lengthA = getNodeLength(headA)
     let lengthB = getNodeLength(headB)
-    
-    
-    // let headA is always the longer node
+    // caculate the didderence
+    let didderence = Math.abs(lengthA - lengthB) 
+    // swap the headA and headB, set the headA is the longer one
     if(lengthA < lengthB) {
         [headA, headB] = [headB, headA]
     }
-    
-    let minus = Math.abs(lengthA - lengthB)
-    while(minus--) {
+     // move head pointer ,so that can compare with the listA from head to tail
+    while(didderence--) {
         headA = headA.next
     }
-    
-    
-    while( headA  && headA !== headB) {
+    // iterate through the listA, find the same node that the memory is same
+    while(headA) {
+        if(headA === headB) return headA
         headA = headA.next
         headB = headB.next
     }
-    
-    return headA
-   
 };
