@@ -8,10 +8,8 @@ var triangleNumber = function(nums) {
     for(let startIndex = 0; startIndex < nums.length - 2; startIndex++ ) {
         for(let innerIndex = startIndex + 1; innerIndex < nums.length - 1; innerIndex++) {
             let pointer = innerIndex + 1
-            while(pointer < nums.length) {
-                if(nums[startIndex] + nums[innerIndex] > nums[pointer]){
-                    count++
-                }
+            while(pointer < nums.length && nums[startIndex] + nums[innerIndex] > nums[pointer]) {
+                count++
                 pointer++
             }
         }
