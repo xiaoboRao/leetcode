@@ -5,14 +5,17 @@
 var triangleNumber = function(nums) {
     nums = nums.sort((a, b) => a - b)
     let count = 0
-    
-    for (let i = 0; i < nums.length - 2; i++) {
-        for (let j = i + 1; j < nums.length - 1; j++) {
-            for (let k = j + 1; k < nums.length; k++) {
-                if (nums[i] + nums[j] > nums[k]) count++;
-                else break;
+    for(let startIndex = 0; startIndex < nums.length - 2; startIndex++ ) {
+        for(let innerIndex = startIndex + 1; innerIndex < nums.length - 1; innerIndex++) {
+            let pointer = innerIndex + 1
+            while(pointer < nums.length) {
+                if(nums[startIndex] + nums[innerIndex] > nums[pointer]){
+                    count++
+                }
+                pointer++
             }
         }
     }
-    return count;
+    return count
 };
+
