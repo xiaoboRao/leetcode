@@ -11,26 +11,16 @@
  * @return {ListNode}
  */
 var detectCycle = function(head) {
-    let slow = head
-    let fast = head
-    let index = 0
-    // iterate the list
-    while(fast && fast.next) {
-            fast = fast.next.next
-            slow = slow.next
-            // find some node that slow and fast meets, means there is cycle in the list
-            if(fast === slow) {
-                // move the one of pointers to the head
-                let slow = head
-                // move both pointers a step at a time again
-                while(slow !== fast) {
-                    slow = slow.next
-                    fast = fast.next
-                }
-                // return the node that they meet, also is the cycle begins
-                return slow  
-            }
+   let mySet = new Set()
+      while (head !== null) {
+          // only when address in the memory is same
+          // it is the node where cycle begins
+        if (mySet.has(head)) {
+          return head
+        } else {
+          mySet.add(head)
+        }
+        head = head.next
+      }
+      return head
     }
-    // means no cycle in the list
-    return null
-};
