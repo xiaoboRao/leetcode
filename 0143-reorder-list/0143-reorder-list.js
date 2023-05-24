@@ -13,16 +13,14 @@ var reorderList = function(head) {
     if(!head.next) return head
     let prev = findPreviousNode(head)
     let next = prev.next
+    // break the list to the two half part
     prev.next = null
 
     let lastHalfPart =  traverseNode(next)
     let firstHalfPart = head
-    console.log(firstHalfPart, lastHalfPart)
-    
-    
     mergeList(firstHalfPart ,lastHalfPart)
 };
-
+// merge to lists
 const mergeList = (list1, list2) => {
     
     while(list1) {
@@ -39,7 +37,7 @@ const mergeList = (list1, list2) => {
     }
 
 }
-
+// reverse the list
 const traverseNode = (head) => {
     let prev = null
     let curr = head
@@ -53,7 +51,7 @@ const traverseNode = (head) => {
     return prev
     
 }
-
+// find midddle previous node
 const findPreviousNode = (head) => {
    let slow =  head
    let fast = head.next
