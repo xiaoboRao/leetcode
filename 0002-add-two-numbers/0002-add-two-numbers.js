@@ -14,19 +14,19 @@ var addTwoNumbers = function(l1, l2) {
  
         let dumy = new ListNode(0)
         let curr = dumy
-        let advance = 0
+        let carry = 0
         
         while(l1 || l2) {
             if(!l1) l1 = new ListNode(0)
             if(!l2) l2 = new ListNode(0)
 
-            let sum = l1.val + l2.val + advance
+            let sum = l1.val + l2.val + carry
             curr.next =new ListNode(sum % 10)
             
             if(sum >= 10) {
-                advance = 1
+                carry = 1
             } else {
-                advance = 0
+                carry = 0
             }
             
             l1 = l1.next
@@ -34,8 +34,8 @@ var addTwoNumbers = function(l1, l2) {
             curr = curr.next
         }
     
-    if(advance > 0) {
-        curr.next = new ListNode(advance)
+    if(carry > 0) {
+        curr.next = new ListNode(carry)
     }
        
     return dumy.next
