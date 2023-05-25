@@ -11,23 +11,33 @@
  * @return {ListNode}
  */
 var addTwoNumbers = function(l1, l2) {
-    
-    if(!l1 && !l2) return null
-    if(!l1) return addTwoNumbers(new ListNode(0), l2)
-    if(!l2) return addTwoNumbers(l1, new ListNode(0))
-    
-    
-    let sum = l1.val + l2.val
-    l1.val = sum % 10
-    let bonus = parseInt(sum/10) 
-    if(bonus > 0) {
-        if(l1.next) {
-            l1.next.val += 1
-        } else {
-            l1.next = new ListNode(1)
+ 
+        let dumy = new ListNode(0)
+        let curr = dumy
+        let advance = 0
+        
+        while(l1 || l2) {
+            if(!l1) l1 = new ListNode(0)
+            if(!l2) l2 = new ListNode(0)
+
+            let sum = l1.val + l2.val + advance
+            curr.next =new ListNode(sum % 10)
+            
+            if(sum >= 10) {
+                advance = 1
+            } else {
+                advance = 0
+            }
+            
+            l1 = l1.next
+            l2 = l2.next
+            curr = curr.next
         }
-    }
     
-    l1.next = addTwoNumbers(l1.next, l2.next)
-    return l1
+    if(advance > 0) {
+        curr.next = new ListNode(advance)
+    }
+       
+    return dumy.next
+   
 };
