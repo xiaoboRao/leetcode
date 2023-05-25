@@ -12,23 +12,32 @@
  */
 var removeNthFromEnd = function(head, n) {
    
-    let current = head
-   let length = 0
-   // iterrate through the list to get the length of linkedList
-   while(current) {
-       length++
-       current = current.next
-   }
-    current = head
-    if(length === n)  {
-        head = head.next            // remove the head node
-    } else {
-        // find the target node that is prior to the removed node
-        for(let i = 0; i < length - n - 1 ; i++) {
-            current = current = current.next
-        } 
-        current.next = current.next.next  
-    }
+    let dumy = new ListNode(0, head)
     
-    return head
+    let length = getListLength(head)
+
+   let pre = getPreviousNode(dumy, length - n)
+   let target = pre.next
+   
+    pre.next = target.next
+   
+    return dumy.next
+    
+    
 };
+
+const getPreviousNode = (head, step) => {
+    while(step-- > 0) {
+        head = head.next
+    }
+    return head
+}
+
+const getListLength = (head) => {
+    let length = 0
+    while(head) {
+        length++
+        head = head.next
+    }
+    return length
+}
