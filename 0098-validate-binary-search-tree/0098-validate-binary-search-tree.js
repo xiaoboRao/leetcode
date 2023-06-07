@@ -11,19 +11,33 @@
  * @return {boolean}
  */
 var isValidBST = function(root) {
-    let maxVal = -Infinity
-    const dfs = (node) => {
-        if(!node) return true
-        let leftResult = dfs(node.left)
-        if(node.val > maxVal) {
-            maxVal = node.val
-        } else {
-            return false
-        }
-        let rightResult = dfs(node.right)
-        
-        return leftResult && rightResult
-    }
-   
-    return dfs(root)
+  let min = -Infinity
+  let max = Infinity
+  
+  const dfs = (root, min, max) => {
+      
+      if(!root) return true
+      
+      if(root.val <= min || root.val >= max) return false
+      
+      let leftReuslt = dfs(root.left, min, root.val)
+      let rightResult = dfs(root.right, root.val, max)
+      
+      return leftReuslt && rightResult
+  }
+  let result = dfs(root, min,  max)
+  return result
+  // test(result).toBe(true)
 };
+
+const test  = (result) => {
+    return {
+         toBe(value) {
+            if(result !== value) {
+                throw Error(`the result is ${result}, the expected value is ${value}`)
+            } else {
+                console.log("pass the test")
+            }
+        }
+    }
+}
