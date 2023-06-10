@@ -12,13 +12,20 @@
  * @return {TreeNode}
  */
 var buildTree = function(preorder, inorder) {
+ 
     if(preorder.length === 0) return null
-    let midValue = preorder.shift()
-    let index = inorder.indexOf(midValue)
-    let leftNodesArr = inorder.slice(0, index)
-    let rightNodesArr = inorder.slice(index + 1)
-    let midNode = new TreeNode(midValue)
-    midNode.left = buildTree(preorder.slice(0, index), leftNodesArr)
-    midNode.right = buildTree(preorder.slice(index), rightNodesArr)
-    return midNode
+    
+    let val = preorder.shift()
+    
+    let index = inorder.indexOf(val)
+    
+    let leftArray = inorder.slice(0, index)
+    let rightArray = inorder.slice(index + 1)
+    
+    let node = new TreeNode(val)
+    
+    // because the preorder array shift one element, so current right subtree start from index 0
+    node.left = buildTree(preorder.slice(0, index), leftArray)
+    node.right = buildTree(preorder.slice( index ), rightArray)
+    return node
 };
