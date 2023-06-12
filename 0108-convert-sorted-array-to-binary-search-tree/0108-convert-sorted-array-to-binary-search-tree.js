@@ -12,16 +12,21 @@
  */
 var sortedArrayToBST = function(nums) {
     
-    const dfs = (nums, start, end) => {
-        if(start === end) return new TreeNode(nums[start]) 
-        if(start > end ) return null
+   const dfs = (nums) => {
+       
+       if(nums.length === 0) return null
+       let index = Math.floor(nums.length / 2)
+       let val = nums[index]
+       
+       let leftNums = nums.slice(0, index)
+       let rightNums = nums.slice(index + 1, nums.length)
+       let node = new TreeNode(val)
+       
+       node.left = dfs(leftNums)
+       node.right = dfs(rightNums)
         
-        let mid = Math.ceil((start + end)/2)
-        let newNode = new TreeNode(nums[mid])
-        newNode.left = dfs(nums, start, mid - 1)
-        newNode.right = dfs(nums, mid + 1, end)
-        return newNode
-    }
+       return node
+   }
     
-    return dfs(nums, 0, nums.length - 1)
+    return dfs(nums)
 };
